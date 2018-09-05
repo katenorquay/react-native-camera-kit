@@ -2,6 +2,7 @@ package com.wix.RNCameraKit.camera;
 
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.hardware.Camera;
 import android.support.annotation.ColorInt;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -29,6 +30,21 @@ public class CameraView extends FrameLayout implements SurfaceHolder.Callback {
         setBackgroundColor(Color.BLACK);
         addView(surface, MATCH_PARENT, MATCH_PARENT);
         surface.getHolder().addCallback(this);
+        surface.setOnClickListener(new OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 if (CameraViewManager.getCamera() != null) {
+                     try {
+                         CameraViewManager.getCamera().autoFocus(new Camera.AutoFocusCallback() {
+                             @Override
+                             public void onAutoFocus(boolean success, Camera camera) {
+                             }
+                         });
+                     } catch (Exception e) {
+                      }
+                 }
+             }
+         });
     }
 
     @Override
